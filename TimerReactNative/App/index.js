@@ -3,6 +3,9 @@ import { StyleSheet, Text, View, StatusBar, TouchableOpacity, Dimensions } from 
 
 const screen = Dimensions.get('window');
 
+// formats correct timer display
+const formatNumber = number => `0${number}`.slice(-2);
+
 const getRemaining = (time) => {
     const mins = Math.floor(time / 60);
     const secs = time - mins * 60;
