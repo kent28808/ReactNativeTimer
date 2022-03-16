@@ -1,10 +1,43 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, StatusBar, TouchableOpacity, Dimensions } from 'react-native';
 
 const screen = Dimensions.get('window');
 
+const getRemaining = (time) => {
+    const mins = Math.floor(time / 60);
+    const secs = time - mins * 60;
+    return { mins, secs };
+}
+
 export default function App() {
-  return (
+    const [remainingSecs, setRemainingSecs] = useState(0);
+  const [isActive, setIsActive] = useState(false);
+  const { mins, secs } = getRemaining(remainingSecs);
+
+  toggle = () => {
+    setIsActive(!isActive);
+  }
+
+  reset = () => {
+    setRemainingSecs(0);
+    setIsActive(false);
+  }
+
+  useEffect(() => {
+    let interval = null;
+    if (isActive) {
+      interval = setInterval(() => {
+        setRemainingSecs(remainingSecs => remainingSecs + 1);
+      }, 1000);
+    } else if (!isActive && remainingSecs !== 0) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [isActive, remainingSecs]);
+  
+  
+  
+    return (
     <View style={styles.container}>
         <StatusBar barStyle="light-content" />
       <TouchableOpacity onPress={() => null} style={styles.button}>
