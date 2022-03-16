@@ -1,5 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, TouchableOpacity, Dimensions } from 'react-native';
+
+const screen = Dimensions.get('window');
 
 export default function App() {
   return (
@@ -22,6 +24,11 @@ const styles = StyleSheet.create({
   button: {
       borderWidth: 10,
       borderColor: '#B9AAFF',
+      width: screen.width / 2,
+      height: screen.width / 2,
+      borderRadius: screen.width / 2,
+      alignItems: 'center',
+      justifyContent: 'center',
   },
   buttonText: {
       fontSize:45,
