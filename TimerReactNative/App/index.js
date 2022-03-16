@@ -20,12 +20,13 @@ export default function App() {
     toggle = () => {
         setIsActive(!isActive);
     }
-
+// reset function
     reset = () => {
         setRemainingSecs(0);
         setIsActive(false);
     }
 
+    // Updates the value of Remaining Seconds 
     useEffect(() => {
         let interval = null;
         if (isActive) {
@@ -47,6 +48,9 @@ export default function App() {
             <TouchableOpacity onPress={this.toggle} style={styles.button}>
                 <Text style={styles.buttonText}>{isActive ? 'Pause' : 'Start'}</Text>
             </TouchableOpacity>
+            <TouchableOpacity onPress={this.reset} style={[styles.button, styles.buttonReset]}>
+          <Text style={[styles.buttonText, styles.buttonTextReset]}>Reset</Text>
+      </TouchableOpacity>
         </View>
     );
 }
@@ -75,5 +79,12 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 90,
         marginBottom: 20
+    },
+    buttonReset: {
+        marginTop: 20,
+        borderColor: "#FF851B"
+    },
+    buttonTextReset: {
+      color: "#FF851B"
     },
 });
