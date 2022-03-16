@@ -11,60 +11,66 @@ const getRemaining = (time) => {
 
 export default function App() {
     const [remainingSecs, setRemainingSecs] = useState(0);
-  const [isActive, setIsActive] = useState(false);
-  const { mins, secs } = getRemaining(remainingSecs);
+    const [isActive, setIsActive] = useState(false);
+    const { mins, secs } = getRemaining(remainingSecs);
 
-  toggle = () => {
-    setIsActive(!isActive);
-  }
-
-  reset = () => {
-    setRemainingSecs(0);
-    setIsActive(false);
-  }
-
-  useEffect(() => {
-    let interval = null;
-    if (isActive) {
-      interval = setInterval(() => {
-        setRemainingSecs(remainingSecs => remainingSecs + 1);
-      }, 1000);
-    } else if (!isActive && remainingSecs !== 0) {
-      clearInterval(interval);
+    toggle = () => {
+        setIsActive(!isActive);
     }
-    return () => clearInterval(interval);
-  }, [isActive, remainingSecs]);
-  
-  
-  
+
+    reset = () => {
+        setRemainingSecs(0);
+        setIsActive(false);
+    }
+
+    useEffect(() => {
+        let interval = null;
+        if (isActive) {
+            interval = setInterval(() => {
+                setRemainingSecs(remainingSecs => remainingSecs + 1);
+            }, 1000);
+        } else if (!isActive && remainingSecs !== 0) {
+            clearInterval(interval);
+        }
+        return () => clearInterval(interval);
+    }, [isActive, remainingSecs]);
+
+
+
     return (
-    <View style={styles.container}>
-        <StatusBar barStyle="light-content" />
-      <TouchableOpacity onPress={() => null} style={styles.button}>
-          <Text style={styles.buttonText}>Start</Text>
-      </TouchableOpacity>
-    </View>
-  );
+        <View style={styles.container}>
+            <StatusBar barStyle="light-content" />
+            <Text style={styles.timerText}>{`${mins}:${secs}`}</Text>
+            <TouchableOpacity onPress={this.toggle} style={styles.button}>
+                <Text style={styles.buttonText}>{isActive ? 'Pause' : 'Start'}</Text>
+            </TouchableOpacity>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#07121B',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  button: {
-      borderWidth: 10,
-      borderColor: '#B9AAFF',
-      width: screen.width / 2,
-      height: screen.width / 2,
-      borderRadius: screen.width / 2,
-      alignItems: 'center',
-      justifyContent: 'center',
-  },
-  buttonText: {
-      fontSize:45,
-      color: '#B9AAFF',
-  }
+    container: {
+        flex: 1,
+        backgroundColor: '#07121B',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    button: {
+        borderWidth: 10,
+        borderColor: '#B9AAFF',
+        width: screen.width / 2,
+        height: screen.width / 2,
+        borderRadius: screen.width / 2,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    buttonText: {
+        fontSize: 45,
+        color: '#B9AAFF',
+    },
+    timerText: {
+        color: '#fff',
+        fontSize: 90,
+        marginBottom: 20
+    },
 });
